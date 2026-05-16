@@ -1,0 +1,144 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+// Datos de ejemplo (puedes agregar más clientes como "mcdonalds" para pruebas)
+const campaigns = [
+  {
+    id: 1,
+    client_id: 1,
+    client: "telcel",
+    platform: "google",
+    name: "Google - Búsqueda Branding",
+    date: "2026-05-14",
+    state: "active",
+    impressions: 125000,
+    clicks: 3750,
+    ctr: 3.0,
+    cpc: 0.85,
+    cost: 3187.5,
+    conversions: 187,
+    conversion_rate: 4.99,
+    conversion_value: 9350.0,
+    roas: 2.93,
+    platform_specific: {
+      average_position: 2.1,
+      quality_score: 7,
+    },
+  },
+  {
+    id: 2,
+    client_id: 1,
+    client: "telcel",
+    platform: "meta",
+    name: "Meta - Prospección Instagram",
+    date: "2026-05-14",
+    state: "completed",
+    impressions: 342000,
+    clicks: 8540,
+    ctr: 2.5,
+    cpc: 0.62,
+    cost: 5294.8,
+    conversions: 312,
+    conversion_rate: 3.65,
+    conversion_value: 12480.0,
+    roas: 2.36,
+    platform_specific: {
+      frequency: 1.3,
+      reach: 263076,
+      social_spend_percentage: 100,
+    },
+  },
+  {
+    id: 3,
+    client_id: 1,
+    client: "telcel",
+    platform: "amazon",
+    name: "Amazon - Patrocinado Productos",
+    date: "2026-05-14",
+    state: "paused",
+    impressions: 89400,
+    clicks: 2145,
+    ctr: 2.4,
+    cpc: 0.93,
+    cost: 1994.85,
+    conversions: 156,
+    conversion_rate: 7.27,
+    conversion_value: 6870.0,
+    roas: 3.44,
+    platform_specific: {
+      acos: 29.03,
+      units_sold: 187,
+      brand_halo_units: 12,
+    },
+  },
+  {
+    id: 4,
+    client_id: 2,
+    client: "mcdonalds",
+    platform: "google",
+    name: "McDonald's - Lanzamiento McCrispy",
+    date: "2026-05-14",
+    state: "active",
+    impressions: 98000,
+    clicks: 4100,
+    ctr: 4.18,
+    cpc: 1.12,
+    cost: 4592.0,
+    conversions: 320,
+    conversion_rate: 7.8,
+    conversion_value: 12800.0,
+    roas: 2.79,
+    platform_specific: {
+      average_position: 1.8,
+      quality_score: 8,
+    },
+  },
+];
+
+// Función auxiliar para parsear valores separados por coma
+function parseMultiValue(param: string | null): string[] | null {
+  if (!param) return null;
+  return param.split(',').map(v => v.trim().toLowerCase());
+}
+
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  
+  // Obtener parámetros (multi-valor para client, platform, state)
+  const clients = parseMultiValue(searchParams.get('client'));
+  const platforms = parseMultiValue(searchParams.get('platform'));
+  const states = parseMultiValue(searchParams.get('state'));
+  const costMax = searchParams.get('cost_max');
+
+  let filtered = [...campaigns];
+
+  // Filtrar por client (uno o varios)
+  if (clients) {
+    filtered = filtered.filter(campaign => 
+      clients.includes(`${campaign.client_id}`)
+    );
+  }
+
+  // Filtrar por platform (uno o varios)
+  if (platforms) {
+    filtered = filtered.filter(campaign => 
+      platforms.includes(campaign.platform.toLowerCase())
+    );
+  }
+
+  // Filtrar por state (uno o varios)
+  if (states) {
+    filtered = filtered.filter(campaign => 
+      states.includes(campaign.state.toLowerCase())
+    );
+  }
+
+  // Filtrar por costo máximo (un solo valor numérico)
+  if (costMax) {
+    const max = parseFloat(costMax);
+    if (!isNaN(max)) {
+      filtered = filtered.filter(campaign => campaign.cost <= max);
+    }
+  }
+
+  return NextResponse.json(filtered);
+}

@@ -1,43 +1,57 @@
-const datos = [
-    {
-        id: 1,
-        client: "Telcel",
-        platform: "Google",
-        name: "Búsqueda Branding",
-        cost: "3187.50",
-        conversion_rate: "4.99",
-    },
-    {
-        id: 2,
-        client: "Telcel",
-        platform: "Meta",
-        name: "Prospección Instagram",
-        cost: "5294.50",
-        conversion_rate: "3.65",
-    },
-    {
-        id: 3,
-        client: "Telcel",
-        platform: "Google",
-        name: "Búsqueda Branding",
-        cost: "3187.50",
-        conversion_rate: "4.99",
-    },
-    {
-        id: 4,
-        client: "Telcel",
-        platform: "Google",
-        name: "Búsqueda Branding",
-        cost: "3187.50",
-        conversion_rate: "4.99",
-    },
-];
+"use client";
+
+import ButtonFilters from "./components/ButtonFilters";
+import { useEffect, useState } from "react";
+import { Campaign } from "@/app/api/campaigns/campaigns.types";
+import { campaignFilter } from "@/store/CampaignFilter";
 
 export default function Ads() {
+    const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    const clients = campaignFilter((state) => state.clients);
+
+    // Función para obtener datos con fetch
+    const fetchCampaigns = async () => {
+        setLoading(true);
+        setError(null);
+
+        // Construir query string
+        const params = new URLSearchParams();
+        if (clients) params.append("client", clients.join(","));
+        // if (platforms) params.append('platform', platforms);
+        // if (states) params.append('state', states);
+        // if (costMax) params.append('cost_max', costMax);
+
+        try {
+            const res = await fetch(`/api/campaigns?${params.toString()}`);
+            if (!res.ok)
+                throw new Error(`Error ${res.status}: ${res.statusText}`);
+            const data = await res.json();
+            setCampaigns(data);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Error desconocido");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        (async () => {
+            fetchCampaigns();
+        })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [clients]);
+
     return (
         <div className="w-full h-full">
             <div className="py-5">
                 <h2 className="font-bold text-2xl">Campañas de ads</h2>
+            </div>
+
+            <div className="w-full pt-5 pb-3 flex justify-end">
+                <ButtonFilters />
             </div>
 
             <div className="overflow-x-auto shadow-md rounded-lg">
@@ -62,24 +76,24 @@ export default function Ads() {
                         </tr>
                     </thead>
                     <tbody>
-                        {datos.map((usuario) => (
+                        {campaigns.map((campaign) => (
                             <tr
-                                key={usuario.id}
+                                key={campaign.id}
                                 className="border-b hover:bg-gray-50 transition">
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {usuario.client}
+                                    {campaign.client}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {usuario.platform}
+                                    {campaign.platform}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                    {usuario.name}
+                                    {campaign.name}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {usuario.cost}
+                                    {campaign.cost}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {usuario.conversion_rate}
+                                    {campaign.conversion_rate}
                                 </td>
                                 {/*                                 
                                 <td className="px-6 py-4 whitespace-nowrap">

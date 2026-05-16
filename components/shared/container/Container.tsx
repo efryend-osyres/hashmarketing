@@ -31,7 +31,7 @@ export function ContainerDashboard(props: ContainerDashboardProps) {
     return (
         <div
             className={cn(
-                "pr-1 md:pr-2 lg:pr-4 xl:pr-20 2xl:pr-32",
+                "pr-3 md:pr-5 lg:pr-7 xl:pr-20 2xl:pr-32",
                 className,
             )}>
             {children}
@@ -50,7 +50,7 @@ export function ContainerInfoDashboard(props: ContainerInfoDashboardProps) {
     return (
         <div
             className={cn(
-                "pl-1 md:pl-2 lg:pl-4 xl:pl-20 2xl:pl-32 w-full",
+                "pl-3 md:pl-5 lg:pl-7 xl:pl-20 2xl:pl-32 w-full",
                 className,
             )}>
             {children}

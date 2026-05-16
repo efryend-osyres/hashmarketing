@@ -1,10 +1,22 @@
 "use client";
 
-import { IconChevronRight } from "@tabler/icons-react";
+import { IconChevronRight, IconUserStar } from "@tabler/icons-react";
 import clsx from "clsx";
 import { useState } from "react";
 import Path from "./Path";
 import { cn } from "@/lib/utils";
+
+import {
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet";
+import Sections from "./Sections";
 
 export function SideNavBar() {
     const [active, setActive] = useState(true);
@@ -12,25 +24,24 @@ export function SideNavBar() {
     return (
         <div
             className={clsx(
-                "bg-white-200 h-full relative transition-all duration-100 rounded-r-4xl border-black/20 border",
+                "hidden md:block",
+                "bg-white/30 h-full relative transition-all duration-100 rounded-r-4xl border-gray-200 border",
                 {
                     "w-80": active,
                     "w-0": !active,
                 },
             )}>
             <div className="w-full overflow-hidden rounded-r-4xl py-8">
-                <Path isActive={false} text="Clientes" />
-                <Path isActive={false} text="Cotizaciones" />
-                <Path isActive={false} text="Tareas asignadas" />
-                <Path isActive={true} text="Campañas de ads" />
-                <Path isActive={false} text="Informe de egresos" />
+                <Sections />
             </div>
 
             <div className="absolute right-0 top-[50%] transform translate-y-[-50%] translate-x-full cursor-pointer">
                 <div
                     className={cn(
-                        "w-5 h-20 rounded-r-lg flex items-center bg-gray-200",
-                        "transition-all duration-200 hover:bg-brand-primary/20",
+                        "border border-black bg-black text-white",
+                        "hover:bg-white hover:text-black",
+                        "w-5 h-20 rounded-r-lg flex items-center",
+                        "transition-all duration-200",
                     )}
                     onClick={() => setActive(!active)}>
                     <IconChevronRight
@@ -42,5 +53,36 @@ export function SideNavBar() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export function MovileSideNavBar() {
+    return (
+        <Sheet>
+            <SheetTrigger className="block md:hidden fixed left-0 top-[50%]">
+                <div
+                    className={cn(
+                        "border border-black bg-black text-white",
+                        "hover:bg-white hover:text-black",
+                        "w-5 h-20 rounded-r-lg flex items-center",
+                        "transition-all duration-200",
+                    )}>
+                    <IconChevronRight
+                        className={clsx(
+                            "size-5 transformation transition-all duration-100 stroke-2",
+                        )}
+                    />
+                </div>
+            </SheetTrigger>
+            <SheetContent side="left">
+                <SheetHeader>
+                    <SheetTitle>Menú</SheetTitle>
+                </SheetHeader>
+
+                <div>
+                    <Sections />
+                </div>
+            </SheetContent>
+        </Sheet>
     );
 }
