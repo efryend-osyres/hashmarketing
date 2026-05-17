@@ -2,50 +2,50 @@
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldLabel } from "@/components/ui/field";
-import { companies } from "./company.data";
 import Image from "next/image";
+import { platforms } from "./platforms.data";
 
-interface FilterCompaniesProps {
-    selectedClients: number[];
-    setSelectedClients: React.Dispatch<React.SetStateAction<number[]>>;
+interface FilterPlatformsProps {
+    selectedPlatforms: number[];
+    setSelectedPlatforms: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
-export default function FilterCompanies(props: FilterCompaniesProps) {
-    const { selectedClients, setSelectedClients } = props;
+export default function FilterPlatform(props: FilterPlatformsProps) {
+    const { selectedPlatforms, setSelectedPlatforms } = props;
 
     const handleCheckboxChange = (value: number) => {
-        if (selectedClients.includes(value)) {
-            setSelectedClients(
-                selectedClients.filter((item) => item !== value),
+        if (selectedPlatforms.includes(value)) {
+            setSelectedPlatforms(
+                selectedPlatforms.filter((item) => item !== value),
             );
         } else {
-            setSelectedClients([...selectedClients, value]);
+            setSelectedPlatforms([...selectedPlatforms, value]);
         }
     };
 
     return (
         <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-3">
-            {companies.map((company) => {
+            {platforms.map((platform) => {
                 return (
-                    <FieldLabel key={company.id}>
+                    <FieldLabel key={platform.id}>
                         <Field className="w-full">
                             <div className="flex items-center gap-1 rounded-sm">
                                 <Checkbox
-                                    id={`company_${company.id}`}
-                                    name={`company_${company.id}`}
-                                    value={company.id}
-                                    checked={selectedClients.includes(
-                                        company.id,
+                                    id={`platform_${platform.id}`}
+                                    name={`platform_${platform.id}`}
+                                    value={platform.id}
+                                    checked={selectedPlatforms.includes(
+                                        platform.id,
                                     )}
                                     onCheckedChange={() =>
-                                        handleCheckboxChange(company.id)
+                                        handleCheckboxChange(platform.id)
                                     }
                                 />
                                 <div className="w-full h-12 relative">
                                     <Image
                                         className="w-full h-full"
-                                        src={company.icon}
-                                        alt={`company_${company.id}`}
+                                        src={platform.icon}
+                                        alt={`platform_${platform.id}`}
                                         fill
                                         style={{ objectFit: "contain" }}
                                     />

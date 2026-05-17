@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import {
@@ -10,28 +11,44 @@ import {
 import { ButtonDialog, ButtonIcon } from "@/components/shared/button";
 import FilterCompanies from "./FilterCompanies";
 import { campaignFilter } from "@/store/CampaignFilter";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
+import FilterPlatform from "./FilterPlatform";
+import FilterState from "./FilterState";
 
 export default function ButtonFilters() {
-    const isInitialized = useRef(false);
-
     const clients = campaignFilter((state) => state.clients);
-    const { setClients } = campaignFilter();
+    const platforms = campaignFilter((state) => state.platforms);
+    const states = campaignFilter((state) => state.states);
+    const { setClients, setPlatforms, setStates } = campaignFilter();
 
     const [isOpen, setIsOpen] = useState(false);
+    const [isReady, setIsReady] = useState(false);
     const [selectedClients, setSelectedClients] = useState<number[]>([]);
+    const [selectedPlatforms, setSelectedPlatforms] = useState<number[]>([]);
+    const [selectedStates, setSelectedStates] = useState<number[]>([]);
 
     useEffect(() => {
-        if (!isInitialized.current && clients?.length) {
-            setSelectedClients(clients);
-            isInitialized.current = true;
-        }
-    }, [clients]);
+        (async () => {
+            if (isReady) {
+                if (clients?.length) setSelectedClients(clients);
+                if (platforms?.length) setSelectedPlatforms(platforms);
+                if (states?.length) setSelectedStates(states);
+            }
+        })();
+    }, [isReady]);
+
+    useLayoutEffect(() => {
+        (async () => {
+            setTimeout(() => {
+                setIsReady(true);
+            }, 2000);
+        })();
+    }, []);
 
     const ClickFilter = () => {
-        console.log(selectedClients);
-
         setClients(selectedClients);
+        setPlatforms(selectedPlatforms);
+        setStates(selectedStates);
         setIsOpen(false);
     };
 
@@ -43,48 +60,61 @@ export default function ButtonFilters() {
                         <ButtonIcon />
                     </div>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-lg">
+                <DialogContent className="sm:max-w-lg p-5 md:p-10">
                     <DialogHeader>
                         <DialogTitle className="">
                             Selecciona la información que quieres visualizar.
                         </DialogTitle>
                     </DialogHeader>
 
-                    <div className="mt-4">
+                    <div className="space-y-6 py-8">
                         <div className="">
-                            <div className="text-sm font-semibold mb-5">
-                                Compañia
-                            </div>
+                            <div className="">
+                                <div className="text-sm font-semibold mb-3">
+                                    Clientes
+                                </div>
 
-                            <div>
-                                <FilterCompanies
-                                    selectedClients={selectedClients}
-                                    setSelectedClients={setSelectedClients}
-                                />
+                                <div>
+                                    <FilterCompanies
+                                        selectedClients={selectedClients}
+                                        setSelectedClients={setSelectedClients}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="">
+                            <div className="">
+                                <div className="text-sm font-semibold mb-3">
+                                    Proveedor
+                                </div>
+
+                                <div>
+                                    <FilterPlatform
+                                        selectedPlatforms={selectedPlatforms}
+                                        setSelectedPlatforms={
+                                            setSelectedPlatforms
+                                        }
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="">
+                            <div className="">
+                                <div className="text-sm font-semibold mb-3">
+                                    Estado
+                                </div>
+
+                                <div>
+                                    <FilterState
+                                        selectedState={selectedStates}
+                                        setSelectedState={setSelectedStates}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <div className="mt-4">
-                        <div className="">
-                            <div className="text-sm font-semibold mb-5">
-                                Provedor
-                            </div>
-
-                            <div>{/* <FilterCompanies /> */}</div>
-                        </div>
-                    </div>
-
-                    <div className="mt-4">
-                        <div className="">
-                            <div className="text-sm font-semibold mb-5">
-                                Estado
-                            </div>
-
-                            <div>{/* <FilterCompanies /> */}</div>
-                        </div>
-                    </div>
-
                     <div className="flex justify-end">
                         <ButtonDialog onClick={() => ClickFilter()} />
                     </div>

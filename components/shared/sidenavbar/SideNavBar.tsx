@@ -1,17 +1,13 @@
 "use client";
 
-import { IconChevronRight, IconUserStar } from "@tabler/icons-react";
+import { IconChevronRight } from "@tabler/icons-react";
 import clsx from "clsx";
 import { useState } from "react";
-import Path from "./Path";
 import { cn } from "@/lib/utils";
 
 import {
     Sheet,
-    SheetClose,
     SheetContent,
-    SheetDescription,
-    SheetFooter,
     SheetHeader,
     SheetTitle,
     SheetTrigger,
@@ -24,7 +20,7 @@ export function SideNavBar() {
     return (
         <div
             className={clsx(
-                "hidden md:block",
+                "hidden lg:block",
                 "bg-white/30 h-full relative transition-all duration-100 rounded-r-4xl border-gray-200 border",
                 {
                     "w-80": active,
@@ -59,7 +55,7 @@ export function SideNavBar() {
 export function MovileSideNavBar() {
     return (
         <Sheet>
-            <SheetTrigger className="block md:hidden fixed left-0 top-[50%]">
+            <SheetTrigger className="block lg:hidden fixed left-0 top-[50%]">
                 <div
                     className={cn(
                         "border border-black bg-black text-white",

@@ -1,0 +1,25 @@
+/* components/ui/LoadingDots.module.css */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.dot {
+  border-radius: 9999px;
+  animation: bounce 0.9s infinite ease-in-out;
+  will-change: transform;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 50%;
+  }
+  50% {
+    transform: translateY(-0.75rem);
+    opacity: 100%;
+  }
+}

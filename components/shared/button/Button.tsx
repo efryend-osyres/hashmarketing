@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { IconCheck, IconFilter2Edit } from "@tabler/icons-react";
-import { MouseEventHandler } from "react";
+import { IconCheck, IconFilter2Edit, IconProps } from "@tabler/icons-react";
+import {
+    ForwardRefExoticComponent,
+    MouseEventHandler,
+    RefAttributes,
+} from "react";
 
 export function ButtonIcon() {
     return (
@@ -16,17 +20,18 @@ export function ButtonIcon() {
 interface ButtonDialogProps {
     text?: string;
     onClick?: MouseEventHandler<HTMLButtonElement>;
+    icon?: ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>;
 }
 
 export function ButtonDialog(props: ButtonDialogProps) {
-    const { text = "Aplicar", onClick } = props;
+    const { text = "Aplicar", onClick, icon: Icon = IconCheck } = props;
 
     return (
         <Button
             size="lg"
             className="hover:bg-white! hover:text-black transition duration-200 flex border! border-black!"
             onClick={onClick}>
-            <IconCheck />
+            <Icon />
             <span>{text}</span>
         </Button>
     );

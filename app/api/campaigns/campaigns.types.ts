@@ -1,10 +1,13 @@
 export interface Campaign {
     id: number;
+    client_id: number;
     client: string,
+    platform_id: number;
     platform: string,
     name: string,
     date: string,
-    state: "active" | "paused" | "completed",
+    state_id: number,
+    state: "activa" | "pausada" | "cancelada" | "completada",
     impressions: number,
     clicks: number,
     ctr: number,
