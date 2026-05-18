@@ -5,7 +5,7 @@ import { UserMenu } from "../usermenu";
 
 export function NavbarDashboard() {
     return (
-        <Container className={cn("w-full fixed top-0 left-0 py-2")}>
+        <Container className={cn("w-full fixed top-0 left-0 py-2 z-20")}>
             <div
                 className={cn(
                     "w-full justify-between items-center flex h-16 px-3",

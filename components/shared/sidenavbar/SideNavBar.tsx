@@ -55,7 +55,7 @@ export function SideNavBar() {
 export function MovileSideNavBar() {
     return (
         <Sheet>
-            <SheetTrigger className="block lg:hidden fixed left-0 top-[50%]">
+            <SheetTrigger className="block lg:hidden fixed left-0 top-[50%] z-20">
                 <div
                     className={cn(
                         "border border-black bg-black text-white",
