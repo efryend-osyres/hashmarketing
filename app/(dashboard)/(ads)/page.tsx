@@ -49,7 +49,10 @@ export default function Ads() {
     return (
         <div className="w-full h-full flex flex-col pb-10">
             <div className="py-5">
-                <h2 className="font-bold text-2xl">Campañas de ads</h2>
+                <h2 className="font-bold text-2xl relative w-fit">
+                    <span className="absolute h-[0.7rem] bottom-[-0.1rem] left-0 w-full bg-brand-primary" />
+                    <span className="relative">Campañas de ads</span>
+                </h2>
             </div>
 
             <div className="w-full pt-5 pb-3 flex">

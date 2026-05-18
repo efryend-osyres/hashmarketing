@@ -3,7 +3,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldLabel } from "@/components/ui/field";
 import Image from "next/image";
-import { platforms } from "./platforms.data";
+import { platforms } from "../data/platforms.data";
 
 interface FilterPlatformsProps {
     selectedPlatforms: number[];

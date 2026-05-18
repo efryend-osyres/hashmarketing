@@ -2,7 +2,7 @@
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldLabel } from "@/components/ui/field";
-import { companies } from "./company.data";
+import { companies } from "../data/company.data";
 import Image from "next/image";
 
 interface FilterCompaniesProps {

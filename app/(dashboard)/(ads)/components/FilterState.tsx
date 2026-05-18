@@ -2,7 +2,7 @@
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldLabel } from "@/components/ui/field";
-import { states } from "./state.data";
+import { states } from "../data/state.data";
 
 interface FilterPlatformsProps {
     selectedState: number[];

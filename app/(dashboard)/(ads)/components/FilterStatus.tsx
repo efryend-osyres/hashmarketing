@@ -3,9 +3,9 @@
 
 import { campaignFilter } from "@/store/CampaignFilter";
 import { useEffect, useState } from "react";
-import { companies } from "./company.data";
-import { platforms } from "./platforms.data";
-import { states } from "./state.data";
+import { companies } from "../data/company.data";
+import { platforms } from "../data/platforms.data";
+import { states } from "../data/state.data";
 
 export default function FilterStatus() {
     const clientsFilter = campaignFilter((state) => state.clients);
