@@ -60,7 +60,7 @@ export default function ButtonFilters() {
                         <ButtonIcon />
                     </div>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-lg p-5 md:p-10">
+                <DialogContent className="sm:max-w-lg p-5 md:p-10 max-h-[95vh] overflow-y-automax-h-[95vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="">
                             Selecciona la información que quieres visualizar.
