@@ -91,7 +91,7 @@ export default function RowTable(props: RowTableProps) {
                         </td>
                     </tr>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-lg p-5 md:p-10 max-h-[95vh] overflow-y-auto">
+                <DialogContent className="sm:max-w-lg px-5 py-30 md:py-10 md:px-10 max-h-[95vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="font-bold">
                             Detalle de la campaña
