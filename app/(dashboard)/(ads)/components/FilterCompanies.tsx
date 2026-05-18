@@ -24,7 +24,7 @@ export default function FilterCompanies(props: FilterCompaniesProps) {
     };
 
     return (
-        <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-3">
+        <div className="w-full grid grid-cols-3 gap-3">
             {companies.map((company) => {
                 return (
                     <FieldLabel key={company.id}>
@@ -41,7 +41,7 @@ export default function FilterCompanies(props: FilterCompaniesProps) {
                                         handleCheckboxChange(company.id)
                                     }
                                 />
-                                <div className="w-full h-12 relative">
+                                <div className="w-full h-7 md:h-12 relative">
                                     <Image
                                         className="w-full h-full"
                                         src={company.icon}

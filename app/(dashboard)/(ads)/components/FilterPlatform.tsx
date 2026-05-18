@@ -24,7 +24,7 @@ export default function FilterPlatform(props: FilterPlatformsProps) {
     };
 
     return (
-        <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-3">
+        <div className="w-full grid grid-cols-3 gap-3">
             {platforms.map((platform) => {
                 return (
                     <FieldLabel key={platform.id}>
@@ -41,7 +41,7 @@ export default function FilterPlatform(props: FilterPlatformsProps) {
                                         handleCheckboxChange(platform.id)
                                     }
                                 />
-                                <div className="w-full h-12 relative">
+                                <div className="w-full h-7 md:h-12 relative">
                                     <Image
                                         className="w-full h-full"
                                         src={platform.icon}

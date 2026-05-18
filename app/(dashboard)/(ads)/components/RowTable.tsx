@@ -99,18 +99,16 @@ export default function RowTable(props: RowTableProps) {
                     </DialogHeader>
 
                     <div className="space-y-6">
-                        <div className="grid grid-cols-2 gap-5">
+                        <div className="grid grid-cols-2 gap-5 text-sm md:text-base">
                             <div className="space-y-0 col-span-2">
-                                <div className="text-base font-semibold">
+                                <div className=" font-semibold">
                                     Nombre campaña
                                 </div>
-                                <div className="text-base">{campaign.name}</div>
+                                <div className="">{campaign.name}</div>
                             </div>
 
                             <div className="space-y-0">
-                                <div className="text-base font-semibold">
-                                    Cliente
-                                </div>
+                                <div className="font-semibold">Cliente</div>
                                 <div className="relative w-20 h-7">
                                     <Image
                                         className="w-full h-full"
@@ -129,9 +127,7 @@ export default function RowTable(props: RowTableProps) {
                             </div>
 
                             <div className="space-y-0">
-                                <div className="text-base font-semibold">
-                                    Plataforma
-                                </div>
+                                <div className="font-semibold">Plataforma</div>
                                 <div className="relative w-20 h-7">
                                     <Image
                                         className="w-full h-full"
@@ -152,60 +148,61 @@ export default function RowTable(props: RowTableProps) {
 
                         <div className="border-t border-gray-200 w-full" />
 
-                        <div className="grid grid-cols-3 gap-5">
+                        <div className="grid grid-cols-3 gap-5 text-xs md:text-sm">
                             <div className="space-y-0">
-                                <div className="text-sm font-semibold">
-                                    Estado
+                                <div className="font-semibold">Estado</div>
+                                <div className="">
+                                    <div
+                                        className="p-1 w-fit rounded-md"
+                                        style={{
+                                            backgroundColor: states.find(
+                                                (obj) =>
+                                                    obj.id == campaign.state_id,
+                                            )?.color,
+                                        }}>
+                                        {campaign.state}
+                                    </div>
                                 </div>
-                                <div className="text-sm">{campaign.state}</div>
                             </div>
 
                             <div className="space-y-0">
-                                <div className="text-sm font-semibold">
-                                    Costo
-                                </div>
-                                <div className="text-sm">$ {campaign.cost}</div>
+                                <div className="font-semibold">Costo</div>
+                                <div className="">$ {campaign.cost}</div>
                             </div>
 
                             <div className="space-y-0">
-                                <div className="text-sm font-semibold">
-                                    ROAS
-                                </div>
-                                <div className="text-sm">{campaign.roas}</div>
+                                <div className="font-semibold">ROAS</div>
+                                <div className="">{campaign.roas}</div>
                             </div>
 
                             <div className="space-y-0">
-                                <div className="text-sm font-semibold">
+                                <div className="font-semibold">
                                     Conversiones
                                 </div>
-                                <div className="text-sm">
-                                    {campaign.conversions}
-                                </div>
+                                <div className="">{campaign.conversions}</div>
                             </div>
 
                             <div className="space-y-0">
-                                <div className="text-sm font-semibold">
+                                <div className="font-semibold">
                                     Tasa Conversion
                                 </div>
-                                <div className="text-sm">
+                                <div className="">
                                     {campaign.conversion_rate}
                                 </div>
                             </div>
 
                             <div className="space-y-0">
-                                <div className="text-sm font-semibold">
+                                <div className="font-semibold">
                                     Valor Conversion
                                 </div>
-                                <div className="text-sm">
+                                <div className="">
                                     {campaign.conversion_value}
                                 </div>
                             </div>
 
                             <div className="space-y-0">
-                                <div className="text-sm font-semibold">
-                                    Clicks
-                                </div>
-                                <div className="text-sm">{campaign.clicks}</div>
+                                <div className="font-semibold">Clicks</div>
+                                <div className="">{campaign.clicks}</div>
                             </div>
 
                             <div className="space-y-0">
@@ -214,17 +211,13 @@ export default function RowTable(props: RowTableProps) {
                             </div>
 
                             <div className="space-y-0">
-                                <div className="text-sm font-semibold">CPC</div>
-                                <div className="text-sm">{campaign.cpc}</div>
+                                <div className="font-semibold">CPC</div>
+                                <div className="">{campaign.cpc}</div>
                             </div>
 
                             <div className="space-y-0">
-                                <div className="text-sm font-semibold">
-                                    Impresiones
-                                </div>
-                                <div className="text-sm">
-                                    {campaign.impressions}
-                                </div>
+                                <div className="font-semibold">Impresiones</div>
+                                <div className="">{campaign.impressions}</div>
                             </div>
                         </div>
 
@@ -232,7 +225,7 @@ export default function RowTable(props: RowTableProps) {
 
                         <div className="">
                             <div className="space-y-2">
-                                <div className="text-sm font-semibold">
+                                <div className="text-xs md:text-sm font-semibold">
                                     Relación clicks tasa de conversión
                                 </div>
                                 <Chart />
